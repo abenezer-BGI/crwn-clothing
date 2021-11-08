@@ -12,3 +12,7 @@ a:hover{
     font-weight: bold;
     color: black;
 }
+
+*{
+    box-sizing: border-box;
+}
