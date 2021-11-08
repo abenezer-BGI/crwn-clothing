@@ -4,6 +4,7 @@ import HomePage from "./pages/homepage/homepage.component";
 import {Routes,Route} from "react-router-dom";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
+import SignInAndSignUpPage from "./pages/sign-up-and-sign-in/sign-in-and-sign-up.component";
 
 function App() {
     return (
@@ -11,7 +12,8 @@ function App() {
             <Header/>
             <Routes>
                 <Route exact path='/' element={<HomePage/>}/>
-                <Route path='/shop' element={<ShopPage/>}/>
+                <Route exact path='/shop' element={<ShopPage/>}/>
+                <Route exact path='/signin' element={<SignInAndSignUpPage/>}/>
             </Routes>
         </div>
     );
