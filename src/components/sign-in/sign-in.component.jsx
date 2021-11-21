@@ -25,6 +25,7 @@ class SignIn extends React.Component {
                 email: '',
                 password: '',
             })
+            window.location = '/'
         } catch (exception) {
             console.error(exception)
         }
