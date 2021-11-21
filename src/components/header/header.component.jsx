@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {ReactComponent as Logo} from "../../assets/crown.svg";
 import {auth} from "../../firebase/firebase.util";
 import {connect} from "react-redux";
-import CartIcon from "../car-icon/cart-icon.component";
+import CartIcon from "../cart-icon/cart-icon.component";
 import CardDropdown from "../cart-dropdown/cart-dropdown.component";
 
 const Header = ({currentUser,cartDropdownHidden}) => (
