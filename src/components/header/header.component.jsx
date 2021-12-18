@@ -1,5 +1,4 @@
 import React from 'react';
-import './header.styles.scss';
 import {Link} from "react-router-dom";
 import {ReactComponent as Logo} from "../../assets/crown.svg";
 import {auth} from "../../firebase/firebase.util";
@@ -9,30 +8,31 @@ import CardDropdown from "../cart-dropdown/cart-dropdown.component";
 import {selectCurrentUser} from "../../redux/user/user.selectors";
 import {selectCartHidden} from "../../redux/cart/cart.selectors";
 import {createStructuredSelector} from "reselect";
+import {HeaderContainer, LinkOption, LogoContainer, OptionsContainer} from "./header.styles";
 
-const Header = ({currentUser,cartDropdownHidden}) => (
-    <div className='header'>
-        <Link className='logo-container' to='/'>
+const Header = ({currentUser, cartDropdownHidden}) => (
+    <HeaderContainer>
+        <LogoContainer to='/'>
             <Logo className='logo'/>
-        </Link>
-        <div className='options'>
-            <Link className='option' to='/shop'>
+        </LogoContainer>
+        <OptionsContainer>
+            <LinkOption to='/shop'>
                 SHOP
-            </Link>
-            <Link className='option' to='/shop'>
+            </LinkOption>
+            <LinkOption to='/shop'>
                 CONTACT
-            </Link>
-                {
-                    currentUser
-                    ?<Link to='/' className='option' onClick={() => auth.signOut()}>SIGN OUT</Link>
-                    :<Link className='option' to='/signin'>SIGN IN/UP</Link>
-                }
-                <CartIcon/>
-        </div>
+            </LinkOption>
+            {
+                currentUser
+                    ? <LinkOption to='/' onClick={() => auth.signOut()}>SIGN OUT</LinkOption>
+                    : <LinkOption to='/signin'>SIGN IN/UP</LinkOption>
+            }
+            <CartIcon/>
+        </OptionsContainer>
         {
-            cartDropdownHidden? null :<CardDropdown/>
+            cartDropdownHidden ? null : <CardDropdown/>
         }
-    </div>
+    </HeaderContainer>
 )
 
 const mapStateToProps = createStructuredSelector({
