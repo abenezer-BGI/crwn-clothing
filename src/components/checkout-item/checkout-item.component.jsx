@@ -1,22 +1,27 @@
 import React from "react";
-import './checkout-item.styles.scss';
 import {connect} from "react-redux";
 import {addItem, clearItem, removeItem} from "../../redux/cart/cart.actions";
+import {
+    CheckoutItemContainer,
+    CheckoutItemImageContainer, CheckoutTableQuantityArrow, CheckoutTableQuantityValue, CheckoutTableRemoveButton,
+    CheckoutTableTitleName, CheckoutTableTitlePrice,
+    CheckoutTableTitleQuantity
+} from "./checkout-item.styles";
 
 const CheckoutItem = ({cartItem: {imageUrl, name, price, quantity, id}, cartItem, clearItem, addItem, removeItem}) => (
-    <div className={'checkout-item'}>
-        <div className={'image-container'}>
+    <CheckoutItemContainer>
+        <CheckoutItemImageContainer>
             <img alt={'item'} src={imageUrl}/>
-        </div>
-        <span className={'name'}>{name}</span>
-        <span className={'quantity'}>
-            <div className={'arrow'} onClick={() => removeItem(cartItem)}>&#10094;</div>
-            <span className={'value'}>{quantity}</span>
-            <div className={'arrow'} onClick={() => addItem(cartItem)}>&#10095;</div>
-        </span>
-        <span className={'price'}>{price}</span>
-        <div className={'remove-button'} onClick={() => clearItem(id)}>&#10005;</div>
-    </div>
+        </CheckoutItemImageContainer>
+        <CheckoutTableTitleName>{name}</CheckoutTableTitleName>
+        <CheckoutTableTitleQuantity>
+            <CheckoutTableQuantityArrow className={'arrow'} onClick={() => removeItem(cartItem)}>&#10094;</CheckoutTableQuantityArrow>
+            <CheckoutTableQuantityValue className={'value'}>{quantity}</CheckoutTableQuantityValue>
+            <CheckoutTableQuantityArrow className={'arrow'} onClick={() => addItem(cartItem)}>&#10095;</CheckoutTableQuantityArrow>
+        </CheckoutTableTitleQuantity>
+        <CheckoutTableTitlePrice >{price}</CheckoutTableTitlePrice>
+        <CheckoutTableRemoveButton onClick={() => clearItem(id)}>&#10005;</CheckoutTableRemoveButton>
+    </CheckoutItemContainer>
 )
 
 const mapDispatchToProps = (dispatch) => ({
