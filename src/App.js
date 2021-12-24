@@ -10,9 +10,9 @@ import {setCurrentUser} from "./redux/user/user.action";
 import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "./redux/user/user.selectors";
 import CheckoutPage from "./pages/checkout/checkout.component";
-import CollectionOverview from "./components/collection-overview/collection-overview.component";
 import CollectionPage from "./pages/collection/collection.component";
 import ShopPage from "./pages/shop/shop.component";
+import CollectionOverviewContainer from "./components/collection-overview/collection-overview.container";
 
 class App extends React.Component {
 
@@ -49,7 +49,7 @@ class App extends React.Component {
                 <Routes>
                     <Route exact path='/' element={<HomePage/>}/>
                     <Route path='shop' element={<ShopPage/>}>
-                        <Route path='' element={<CollectionOverview/>}/>
+                        <Route path='' element={<CollectionOverviewContainer/>}/>
                         <Route path=':collectionId' element={<CollectionPage/>}/>
                     </Route>
                     <Route exact path='signin' element={<SignInAndSignUpPage/>}/>
