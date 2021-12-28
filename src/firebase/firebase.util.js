@@ -52,6 +52,18 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
 }
 
 /**
+ * Make a promise based firebase data fetching
+ */
+export const getCurrentUserPromise = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+            unsubscribe()
+            resolve(userAuth)
+        },reject)
+    })
+}
+
+/**
  * Convert the provided array into a normalized JSON
  * @param collections
  * @returns {*}
@@ -78,8 +90,8 @@ export const convertCollectionsSnapshotToMap = (collections) => {
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({prompt: 'select_account'});
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+googleAuthProvider.setCustomParameters({prompt: 'select_account'});
+export const signInWithGoogle = () => auth.signInWithPopup(googleAuthProvider);
 
 export default firebase;
