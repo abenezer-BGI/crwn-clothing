@@ -9,18 +9,19 @@ import {selectDidCollectionsLoad} from "../../redux/shop/shop.selectors";
 
 const OutletWithSpinner = WithSpinner(Outlet)
 
-const ShopPage = ({fetchCollectionsStart}) => {
+const ShopPage = ({fetchCollectionsStart, didCollectionsLoad}) => {
 
     useEffect(() => {
         fetchCollectionsStart()
     }, [fetchCollectionsStart])
 
-    const {didCollectionsLoad} = this.props
+
     return (
         <div className='shop-page'>
             <OutletWithSpinner isLoading={!didCollectionsLoad}/>
         </div>
     )
+
 }
 
 const mapStateToProps = createStructuredSelector({

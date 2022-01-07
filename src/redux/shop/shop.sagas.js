@@ -19,5 +19,5 @@ export function* fetchCollectionsStart() {
 }
 
 export function* shopSagas () {
-    yield all([fetchCollectionsStart])
+    yield all([call(fetchCollectionsStart)])
 }
