@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../../redux/shop/shop.data';
 import {Outlet} from "react-router-dom";
 import {connect} from "react-redux";
@@ -9,22 +9,18 @@ import {selectDidCollectionsLoad} from "../../redux/shop/shop.selectors";
 
 const OutletWithSpinner = WithSpinner(Outlet)
 
-class ShopPage extends React.Component {
+const ShopPage = ({fetchCollectionsStart}) => {
 
-    componentDidMount() {
-        const {fetchCollectionsStart} = this.props
+    useEffect(() => {
         fetchCollectionsStart()
-    }
+    }, [fetchCollectionsStart])
 
-
-    render() {
-        const {didCollectionsLoad} = this.props
-        return (
-            <div className='shop-page'>
-                <OutletWithSpinner isLoading={!didCollectionsLoad}/>
-            </div>
-        )
-    }
+    const {didCollectionsLoad} = this.props
+    return (
+        <div className='shop-page'>
+            <OutletWithSpinner isLoading={!didCollectionsLoad}/>
+        </div>
+    )
 }
 
 const mapStateToProps = createStructuredSelector({

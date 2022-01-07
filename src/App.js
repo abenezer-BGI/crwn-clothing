@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './App.css';
 import HomePage from "./pages/homepage/homepage.component";
 import {Route, Routes} from "react-router-dom";
@@ -13,43 +13,34 @@ import ShopPage from "./pages/shop/shop.component";
 import CollectionOverviewContainer from "./components/collection-overview/collection-overview.container";
 import {checkUserSession} from "./redux/user/user.action";
 
-class App extends React.Component {
+const App = ({checkUserSession}) => {
 
-    unsubscribeFromAuth = null
-
-    componentDidMount() {
-        const {checkUserSession} = this.props
-
+    useEffect(() => {
         checkUserSession()
-    }
+    }, [checkUserSession])
 
-    componentWillUnmount() {
-        this.unsubscribeFromAuth()
-    }
+    return (
+        <div>
+            <Header/>
+            <Routes>
+                <Route exact path='/' element={<HomePage/>}/>
+                <Route path='shop' element={<ShopPage/>}>
+                    <Route path='' element={<CollectionOverviewContainer/>}/>
+                    <Route path=':collectionId' element={<CollectionPage/>}/>
+                </Route>
+                <Route exact path='signin' element={<SignInAndSignUpPage/>}/>
+                <Route exect path='checkout' element={<CheckoutPage/>}/>
+            </Routes>
+        </div>
+    )
 
-    render() {
-        return (
-            <div>
-                <Header/>
-                <Routes>
-                    <Route exact path='/' element={<HomePage/>}/>
-                    <Route path='shop' element={<ShopPage/>}>
-                        <Route path='' element={<CollectionOverviewContainer/>}/>
-                        <Route path=':collectionId' element={<CollectionPage/>}/>
-                    </Route>
-                    <Route exact path='signin' element={<SignInAndSignUpPage/>}/>
-                    <Route exect path='checkout' element={<CheckoutPage/>}/>
-                </Routes>
-            </div>
-        )
-    }
 }
 
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser
 })
 
-const mapDispatchToProps = (dispatch)=>({
-    checkUserSession: ()=> dispatch(checkUserSession())
+const mapDispatchToProps = (dispatch) => ({
+    checkUserSession: () => dispatch(checkUserSession())
 })
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
